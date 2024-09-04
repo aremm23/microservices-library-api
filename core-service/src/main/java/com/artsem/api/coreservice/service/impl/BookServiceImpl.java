@@ -5,6 +5,8 @@ import com.artsem.api.coreservice.exception.DataNotFoundedException;
 import com.artsem.api.coreservice.model.Book;
 import com.artsem.api.coreservice.repository.BookRepository;
 import com.artsem.api.coreservice.service.BookService;
+import com.artsem.api.coreservice.service.MessageSenderService;
+import com.artsem.api.coreservice.util.JsonConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,10 @@ public class BookServiceImpl implements BookService {
 
     private final BookRepository repository;
 
+    private final JsonConverter jsonConverter;
+
+    private final MessageSenderService messageSenderService;
+
     @Override
     public List<Book> getAllBooks() {
         return repository.findAll();
@@ -23,6 +29,10 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book getBookById(Long id) {
+        return findBookById(id);
+    }
+
+    private Book findBookById(Long id) {
         return repository.findById(id).orElseThrow(
                 () -> new DataNotFoundedException("Book with id %d not found".formatted(id))
         );
@@ -44,14 +54,18 @@ public class BookServiceImpl implements BookService {
         if (isExistByIsbn(book.getIsbn())) {
             throw new DataNotCreatedException("Book with isbn %s already exist.".formatted(book.getIsbn()));
         }
-        return repository.save(book);
+        repository.save(book);
+        sendBookToLibrary(jsonConverter.convertBookToJson(book));
+        return book;
+    }
+
+    private void sendBookToLibrary(String message) {
+        messageSenderService.send(message);
     }
 
     @Override
     public Book updateBook(Long id, Book updatedBook) {
-        Book existingBook = repository.findById(id).orElseThrow(
-                () -> new DataNotFoundedException("Book with id %s not found".formatted(id))
-        );
+        Book existingBook = findBookById(id);
         checkIsbn(updatedBook.getIsbn(), existingBook.getIsbn());
         parseUpdatedToExisted(updatedBook, existingBook);
         return repository.save(existingBook);
@@ -73,9 +87,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public void deleteBookById(Long id) {
-        Book book = repository.findById(id).orElseThrow(
-                () -> new DataNotFoundedException("Book with id %s not found".formatted(id))
-        );
+        Book book = findBookById(id);
         repository.delete(book);
     }
 }
