@@ -57,6 +57,14 @@ public class BookController {
         );
     }
 
+    @GetMapping("/{isbn}")
+    public ResponseEntity<BookDto> getBookByIsbn(@PathVariable String isbn) {
+        return new ResponseEntity<>(
+                mapper.map(bookService.getBookByIsbn(isbn), BookDto.class),
+                HttpStatus.OK
+        );
+    }
+
     @GetMapping
     public ResponseEntity<List<BookDto>> getAllBooks() {
         return new ResponseEntity<>(
