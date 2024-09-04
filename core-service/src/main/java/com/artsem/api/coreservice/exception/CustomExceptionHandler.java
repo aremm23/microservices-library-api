@@ -12,6 +12,7 @@ public class CustomExceptionHandler {
 
     @ExceptionHandler({
             DataNotFoundedException.class,
+            DataNotCreatedException.class,
             NullPointerException.class,
             IllegalStateException.class,
             IllegalArgumentException.class,
