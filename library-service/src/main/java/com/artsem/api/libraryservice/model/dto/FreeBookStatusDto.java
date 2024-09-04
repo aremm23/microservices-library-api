@@ -7,6 +7,4 @@ public class FreeBookStatusDto {
 
     private Long id;
 
-    private Boolean isFree;
-
 }
