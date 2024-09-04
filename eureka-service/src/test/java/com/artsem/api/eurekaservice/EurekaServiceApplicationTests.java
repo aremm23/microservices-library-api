@@ -1,10 +1,10 @@
-package com.artsem.api.coreservice;
+package com.artsem.api.eurekaservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class CoreServiceApplicationTests {
+class EurekaServiceApplicationTests {
 
     @Test
     void contextLoads() {
