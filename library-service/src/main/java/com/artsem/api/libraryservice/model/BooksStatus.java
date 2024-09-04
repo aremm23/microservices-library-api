@@ -20,10 +20,10 @@ public class BooksStatus {
     @GeneratedValue(generator = "bookIdSeqGen")
     private Long id;
 
-    private Boolean is_free;
+    private Boolean isFree;
 
-    private LocalDateTime take_date;
+    private LocalDateTime takeDate;
 
-    private LocalDateTime return_date;
+    private LocalDateTime returnDate;
 
 }

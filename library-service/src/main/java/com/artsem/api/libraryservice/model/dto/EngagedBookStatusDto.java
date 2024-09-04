@@ -6,14 +6,14 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 @Data
-public class BookStatusDto {
+public class EngagedBookStatusDto {
 
-    private Boolean is_free;
-
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime take_date;
+    private Long id;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime return_date;
+    private LocalDateTime takeDate;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime returnDate;
 
 }
