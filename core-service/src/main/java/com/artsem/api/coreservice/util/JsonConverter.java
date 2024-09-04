@@ -12,9 +12,9 @@ public class JsonConverter {
 
     private final ObjectMapper objectMapper;
 
-    public String convertBookToJson(Book book) {
+    public String convertBookToJson(BookIdMessage bookId) {
         try {
-            return objectMapper.writeValueAsString(book);
+            return objectMapper.writeValueAsString(bookId);
         } catch (JsonProcessingException e) {
             throw new RuntimeException("Failed to convert book to JSON", e);
         }

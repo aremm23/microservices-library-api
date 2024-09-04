@@ -6,6 +6,7 @@ import com.artsem.api.coreservice.model.Book;
 import com.artsem.api.coreservice.repository.BookRepository;
 import com.artsem.api.coreservice.service.BookService;
 import com.artsem.api.coreservice.service.MessageSenderService;
+import com.artsem.api.coreservice.util.BookIdMessage;
 import com.artsem.api.coreservice.util.JsonConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -54,13 +55,19 @@ public class BookServiceImpl implements BookService {
         if (isExistByIsbn(book.getIsbn())) {
             throw new DataNotCreatedException("Book with isbn %s already exist.".formatted(book.getIsbn()));
         }
-        repository.save(book);
-        sendBookToLibrary(jsonConverter.convertBookToJson(book));
-        return book;
+        Book savedBook = repository.save(book);
+        sendBookToLibrary(savedBook);
+        return savedBook;
     }
 
-    private void sendBookToLibrary(String message) {
-        messageSenderService.send(message);
+    private void sendBookToLibrary(Book book) {
+        messageSenderService.send(
+                jsonConverter.convertBookToJson(
+                        BookIdMessage.builder()
+                                .id(book.getId())
+                                .build()
+                )
+        );
     }
 
     @Override
