@@ -1,5 +1,6 @@
 package com.artsem.api.coreservice.service.impl;
 
+import com.artsem.api.coreservice.exception.DataNotCreatedException;
 import com.artsem.api.coreservice.exception.DataNotFoundedException;
 import com.artsem.api.coreservice.model.Book;
 import com.artsem.api.coreservice.repository.BookRepository;
@@ -27,6 +28,10 @@ public class BookServiceImpl implements BookService {
         );
     }
 
+    private boolean isExistByIsbn(String isbn) {
+        return repository.existsByIsbn(isbn);
+    }
+
     @Override
     public Book getBookByIsbn(String isbn) {
         return repository.findByIsbn(isbn).orElseThrow(
@@ -36,6 +41,9 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book addBook(Book book) {
+        if (isExistByIsbn(book.getIsbn())) {
+            throw new DataNotCreatedException("Book with isbn %s already exist.".formatted(book.getIsbn()));
+        }
         return repository.save(book);
     }
 
@@ -44,6 +52,7 @@ public class BookServiceImpl implements BookService {
         Book existingBook = repository.findById(id).orElseThrow(
                 () -> new DataNotFoundedException("Book with id %s not found".formatted(id))
         );
+        checkIsbn(updatedBook.getIsbn(), existingBook.getIsbn());
         parseUpdatedToExisted(updatedBook, existingBook);
         return repository.save(existingBook);
     }
@@ -54,6 +63,12 @@ public class BookServiceImpl implements BookService {
         existingBook.setIsbn(updatedBook.getIsbn());
         existingBook.setDescription(updatedBook.getDescription());
         existingBook.setGenre(updatedBook.getGenre());
+    }
+
+    private void checkIsbn(String updatedBookIsbn, String existingBookIsbn) {
+        if (isExistByIsbn(updatedBookIsbn) && !updatedBookIsbn.equals(existingBookIsbn)) {
+            throw new DataNotCreatedException("Book with isbn %s already exist.".formatted(updatedBookIsbn));
+        }
     }
 
     @Override
