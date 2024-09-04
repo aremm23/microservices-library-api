@@ -45,6 +45,13 @@
   }
 }]]></component>
   <component name="RunManager" selected="Spring Boot.EurekaServiceApplication">
+    <configuration name="AuthenticationServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="authentication-service" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.artsem.api.authenticationservice.AuthenticationServiceApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="CoreServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="core-service" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.artsem.api.coreservice.CoreServiceApplication" />
