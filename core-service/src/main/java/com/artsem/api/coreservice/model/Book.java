@@ -15,6 +15,7 @@ public class Book {
     @GeneratedValue(generator = "bookIdSeqGen")
     private Long id;
 
+    @Column(unique = true)
     private String isbn;
 
     private String name;
