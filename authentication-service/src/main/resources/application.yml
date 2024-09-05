@@ -4,9 +4,22 @@ server:
 spring:
   application:
     name: auth-service
+  datasource:
+    url: jdbc:postgresql://localhost:5432/authentication_db
+    username: postgres
+    password: postgres
+
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.yaml
+    enabled: true
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
 
 jwt:
-  secret: MiAVzqUXy5Tfr1kVIGpPMiAVzqUXy5Tfr1kVIGpP
+  secret: n4EpjnNy7x8FjfwYMDjPi8xYyL0EocN1uzUsfFTbLhk=
   expiration: 86400
 
 eureka:
