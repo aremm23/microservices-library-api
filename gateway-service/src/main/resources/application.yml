@@ -1,22 +1,11 @@
 spring:
+  config:
+    import: 'optional:configserver:'
   cloud:
-    gateway:
-      discovery:
-        locator:
-          enabled: true
-          lower-case-service-id: true
+    config:
+      uri: "http://localhost:8888"
   application:
     name: api-gateway
+
 server:
   port: 8765
-
-jwt:
-  secret: MiAVzqUXy5Tfr1kVIGpPMiAVzqUXy5Tfr1kVIGpP
-  expiration: 86400
-
-eureka:
-  client:
-    register-with-eureka: true
-    fetch-registry: true
-    service-url:
-      defaultZone: http://localhost:8761/eureka/
