@@ -1,4 +1,4 @@
-package com.artsem.api.libraryservice.service.impl;
+package com.artsem.api.libraryservice.service;
 
 import com.artsem.api.libraryservice.model.BookIdMessage;
 import com.artsem.api.libraryservice.service.converter.MessageConverter;
@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 public class RabbitReceiver {
 
     private final MessageConverter<BookIdMessage> bookIdMessageConverter;
+
+    private final BookStatusService bookStatusService;
 
     @RabbitListener(queues = {"${queue.name}"})
     public void receive(String message) {
@@ -26,7 +28,7 @@ public class RabbitReceiver {
         return message.contains("id");
     }
 
-    private void processBookIdMessage(BookIdMessage message) {
-        System.out.println(message);
+    private void processBookIdMessage(BookIdMessage bookIdPojo) {
+        bookStatusService.addNewFreeBook(bookIdPojo.getId());
     }
 }

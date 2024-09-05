@@ -58,6 +58,7 @@ public class BookStatusServiceImpl implements BookStatusService {
     @Override
     public BooksStatus addNewFreeBook(Long id) {
         BooksStatus booksStatus = BooksStatus.builder()
+                .id(id)
                 .isFree(true)
                 .returnDate(null)
                 .takeDate(null)

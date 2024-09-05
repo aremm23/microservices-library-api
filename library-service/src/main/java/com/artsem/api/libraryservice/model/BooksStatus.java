@@ -16,8 +16,6 @@ import java.time.LocalDateTime;
 @Table(name = "books_status")
 public class BooksStatus {
     @Id
-    @SequenceGenerator(name = "bookIdSeqGen", sequenceName = "book_id_seq", allocationSize = 1)
-    @GeneratedValue(generator = "bookIdSeqGen")
     private Long id;
 
     private Boolean isFree;
