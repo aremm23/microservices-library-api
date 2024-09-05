@@ -1,32 +1,10 @@
-server:
-  port: 8082
-
 spring:
+  config:
+    import: 'optional:configserver:'
+  cloud:
+    config:
+      uri: "http://localhost:8888"
   application:
     name: auth-service
-  datasource:
-    url: jdbc:postgresql://localhost:5432/authentication_db
-    username: postgres
-    password: postgres
-
-  liquibase:
-    change-log: classpath:db/changelog/db.changelog-master.yaml
-    enabled: true
-
-  jpa:
-    show-sql: true
-    hibernate:
-      ddl-auto: none
-
-jwt:
-  secret: n4EpjnNy7x8FjfwYMDjPi8xYyL0EocN1uzUsfFTbLhk=
-  expiration: 86400
-
-eureka:
-  instance:
-    prefer-ip-address: true
-  client:
-    service-url:
-      defaultZone:
-        http://localhost:8761/eureka
-
+server:
+  port: 8082
