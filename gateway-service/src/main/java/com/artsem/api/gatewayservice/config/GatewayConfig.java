@@ -16,7 +16,7 @@ public class GatewayConfig {
     @Bean
     public RouteLocator routeLocator(RouteLocatorBuilder builder) {
         return builder.routes()
-                .route("auth-service", r -> r.path("/api/v1/auth/**")
+                .route("auth-service", r -> r.path("/api/v1/security/**")
                         .filters(f -> f.filter(authenticationFilter))
                         .uri("lb://auth-service"))
                 .route("core-service", r -> r.path("/api/**")
