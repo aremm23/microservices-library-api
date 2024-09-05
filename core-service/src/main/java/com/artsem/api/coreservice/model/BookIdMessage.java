@@ -1,4 +1,4 @@
-package com.artsem.api.coreservice.util;
+package com.artsem.api.coreservice.model;
 
 import lombok.Builder;
 import lombok.Data;

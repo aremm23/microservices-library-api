@@ -6,8 +6,8 @@ import com.artsem.api.coreservice.model.Book;
 import com.artsem.api.coreservice.repository.BookRepository;
 import com.artsem.api.coreservice.service.BookService;
 import com.artsem.api.coreservice.service.MessageSenderService;
-import com.artsem.api.coreservice.util.BookIdMessage;
-import com.artsem.api.coreservice.util.JsonConverter;
+import com.artsem.api.coreservice.model.BookIdMessage;
+import com.artsem.api.coreservice.service.converter.JsonConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
