@@ -10,4 +10,4 @@ spring:
           uri: git@github.com:aremm23/modsen-library-config.git
           clone-on-start: true
           default-label: master
-          private-key: C:\Users\user\.ssh\id_ed25519
+          private-key: ./id_ed25519
