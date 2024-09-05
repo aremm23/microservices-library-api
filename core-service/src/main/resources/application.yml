@@ -1,32 +1,11 @@
 spring:
   application:
     name: core-service
-
-  datasource:
-    url: jdbc:postgresql://${HOST}:5432/${POSTGRES_DB}
-    username: ${POSTGRES_USERNAME}
-    password: ${POSTGRES_PASSWORD}
-
-  liquibase:
-    change-log: classpath:db/changelog/db.changelog-master.yaml
-    enabled: true
-
-  jpa:
-    show-sql: true
-    hibernate:
-      ddl-auto: none
-
   config:
-    import: optional:file:.env[.properties]
-
-  rabbitmq:
-    host: localhost
-    username: guest
-    password: guest
-    port: 5672
-
-queue:
-  name: queue-2
+    import: 'optional:configserver:'
+  cloud:
+    config:
+      uri: "http://localhost:8888"
 
 server:
   port: 8080
