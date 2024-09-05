@@ -19,10 +19,10 @@ public class GatewayConfig {
                 .route("auth-service", r -> r.path("/api/v1/security/**")
                         .filters(f -> f.filter(authenticationFilter))
                         .uri("lb://auth-service"))
-                .route("core-service", r -> r.path("/api/**")
+                .route("core-service", r -> r.path("/api/v1/book/**")
                         .filters(f -> f.filter(authenticationFilter))
                         .uri("lb://core-service"))
-                .route("library-service", r -> r.path("/api/**")
+                .route("library-service", r -> r.path("/api/v1/library/**")
                         .filters(f -> f.filter(authenticationFilter))
                         .uri("lb://library-service"))
                 .build();

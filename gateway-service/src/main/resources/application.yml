@@ -5,7 +5,7 @@ spring:
     config:
       uri: "http://localhost:8888"
   application:
-    name: api-gateway
+    name: gateway-service
 
 server:
   port: 8765
