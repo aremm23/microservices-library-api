@@ -25,7 +25,8 @@ Ensure you are in the project root directory.
 
 Run the following command to start PostgreSQL and RabbitMQ containers:
 
-`docker-compose up -d`
+`docker-compose up --build postgres`
+`docker-compose up --build rabbitmq`
 
 This will start the PostgreSQL database on its default port (5432) and RabbitMQ on its default port (5672).
 
