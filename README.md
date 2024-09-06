@@ -36,15 +36,15 @@ services.
 1. Start the Eureka Service:
 
 ```
-cd eureka-service
-./mvnw spring-boot:run
+cd ./eureka-service
+mvn spring-boot:run
 ```
-
-    2. After the Eureka Service is up and running, start the Config Service:
+    
+2. After the Eureka Service is up and running, start the Config Service:
 
 ```
 cd ../config-service
-./mvnw spring-boot:run
+mvn spring-boot:run
 ```
 
 # Step 3: Start the Remaining Services
@@ -52,32 +52,32 @@ cd ../config-service
 Once Eureka and Config services are running, you can start the remaining services. You can run them in any order, as
 long as Eureka and Config are already up.
 
-    1. Gateway Service:
+1. Gateway Service:
 
 ```
 cd ../gateway-service
-./mvnw spring-boot:run
+mvn spring-boot:run
 ```
 
-    2. Authentication Service:
+2. Authentication Service:
 
 ```
 cd ../authentication-service
-./mvnw spring-boot:run
+mvn spring-boot:run
 ```
 
-    3. Core Service:
+3. Core Service:
 
 ```
 cd ../core-service
-./mvnw spring-boot:run
+mvn spring-boot:run
 ```
 
-    4. Library service
+4. Library service
 
 ```
 cd ../library-service
-./mvnw spring-boot:run
+mvn spring-boot:run
 ```
 
 # Step 4: Verify the Services
