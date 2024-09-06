@@ -36,15 +36,13 @@ services.
 1. Start the Eureka Service:
 
 ```
-cd ./eureka-service
-mvn spring-boot:run
+docker-compose up --build eureka
 ```
     
 2. After the Eureka Service is up and running, start the Config Service:
 
 ```
-cd ../config-service
-mvn spring-boot:run
+docker-compose up --build config
 ```
 
 # Step 3: Start the Remaining Services
@@ -55,29 +53,25 @@ long as Eureka and Config are already up.
 1. Gateway Service:
 
 ```
-cd ../gateway-service
-mvn spring-boot:run
+docker-compose up --build gateway
 ```
 
 2. Authentication Service:
 
 ```
-cd ../authentication-service
-mvn spring-boot:run
+docker-compose up --build auth
 ```
 
 3. Core Service:
 
 ```
-cd ../core-service
-mvn spring-boot:run
+docker-compose up --build core
 ```
 
 4. Library service
 
 ```
-cd ../library-service
-mvn spring-boot:run
+docker-compose up --build library
 ```
 
 # Step 4: Verify the Services
