@@ -7,7 +7,6 @@ spring:
     config:
       server:
         git:
-          uri: git@github.com:aremm23/modsen-library-config.git
+          uri: https://github.com/aremm23/modsen-library-config.git
           clone-on-start: true
           default-label: master
-          private-key: ./id_ed25519

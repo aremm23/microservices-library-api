@@ -9,10 +9,88 @@ services:
       - "5672:5672"
       - "15672:15672"
     networks:
-      - app-network
+      - api_network
     environment:
       - RABBITMQ_DEFAULT_USER=guest
       - RABBITMQ_DEFAULT_PASS=guest
+
+  config:
+    build:
+      context: ./config-service
+    image: 'config-service:latest'
+    container_name: config-service
+    ports:
+      - "8888:8888"
+    depends_on:
+      - eureka
+    networks:
+      - api_network
+
+  eureka:
+    build:
+      context: ./eureka-service
+    image: 'eureka-service:latest'
+    container_name: eureka-service
+    ports:
+      - "8761:8761"
+    networks:
+      - api_network
+
+  auth:
+    build:
+      context: ./authentication-service
+    image: 'authentication-service:latest'
+    container_name: authentication-service
+    ports:
+      - "8081:8081"
+    depends_on:
+      - postgres
+      - eureka
+      - config
+    networks:
+      - api_network
+
+  core:
+    build:
+      context: ./core-service
+    image: 'core-service:latest'
+    container_name: core-service
+    ports:
+      - "8082:8082"
+    depends_on:
+      - postgres
+      - eureka
+      - config
+    networks:
+      - api_network
+
+  gateway:
+    build:
+      context: ./gateway-service
+    image: 'gateway-service:latest'
+    container_name: gateway-service
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+      - eureka
+      - config
+    networks:
+      - api_network
+
+  library:
+    build:
+      context: ./library-service
+    image: 'library-service:latest'
+    container_name: library-service
+    ports:
+      - "8083:8083"
+    depends_on:
+      - postgres
+      - eureka
+      - config
+    networks:
+      - api_network
 
   postgres:
     image: 'postgres:16.1'
@@ -25,8 +103,8 @@ services:
     volumes:
       - ./init-databases.sh:/docker-entrypoint-initdb.d/init-databases.sh
     networks:
-      - app-network
+      - api_network
 
 networks:
-  app-network:
+  api_network:
     driver: bridge
