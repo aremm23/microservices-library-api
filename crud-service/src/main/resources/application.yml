@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: crud-service
+  datasource:
+    url: jdbc:postgresql://localhost/core_book_db
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    open-in-view: false
+    show-sql: true
