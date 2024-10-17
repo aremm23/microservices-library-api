@@ -19,7 +19,6 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public void assignRole(KeycloakRole keycloakRole, UserResource userResource) {
         var role = rolesResource.get(keycloakRole.getRole()).toRepresentation();
-        System.out.println("ASSIGN ROLE");
         userResource.roles().realmLevel().add(List.of(role));
     }
 

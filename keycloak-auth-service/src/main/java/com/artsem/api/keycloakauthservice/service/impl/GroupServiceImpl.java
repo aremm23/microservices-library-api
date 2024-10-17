@@ -3,14 +3,12 @@ package com.artsem.api.keycloakauthservice.service.impl;
 import com.artsem.api.keycloakauthservice.service.GroupService;
 import com.artsem.api.keycloakauthservice.util.KeycloakGroup;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.keycloak.admin.client.resource.GroupsResource;
 import org.keycloak.admin.client.resource.UserResource;
 import org.keycloak.representations.idm.GroupRepresentation;
 import org.springframework.stereotype.Service;
 
 @Service
-@Slf4j
 @RequiredArgsConstructor
 public class GroupServiceImpl implements GroupService {
 

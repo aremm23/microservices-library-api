@@ -102,7 +102,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResource findUserById(String userId) {
-        log.info("Try find user");
         return usersResource.get(userId);
     }
 
