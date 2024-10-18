@@ -1,36 +1,10 @@
 server:
   port: 8081
-
 spring:
   application:
     name: auth-service
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          issuer-uri:  ${OAUTH2_RESOURCESERVER_JWT_ISSUER_URI:http://localhost:9082/realms/test-realm}
-          jwk-set-uri: ${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/certs
-
-app:
-  keycloak:
-    admin:
-      client-id: ${APP_KEYCLOAK_ADMIN_CLIENT_ID:admin-cli}
-      client-secret: ${APP_KEYCLOAK_ADMIN_CLIENT_SECRET:zBwf4CXm9P7LtH1ImzzEMHJs3r7IpgaW}
-    user:
-      client-id: ${APP_KEYCLOAK_USER_CLIENT_ID:spring-client}
-    realm: ${APP_KEYCLOAK_REALM:test-realm}
-    server-url: ${APP_KEYCLOAK_SERVER_URL:http://localhost:9082}
-    grant-type: ${APP_KEYCLOAK_GRANT_TYPE:client_credentials}
-
-eureka:
-  instance:
-    prefer-ip-address: true
-  client:
-    service-url:
-      defaultZone: http://${EUREKA_URI:localhost:8761}/eureka/
-
-logging:
-  level:
-    org:
-      springframework:
-        security: DEBUG
+  config:
+    import: 'optional:configserver:'
+  cloud:
+    config:
+      uri: "http://localhost:8888"
