@@ -10,6 +10,14 @@ spring:
         locator:
           enabled: true
           lower-case-service-id: true
+
+      routes:
+        - id: core_route
+          uri: lb://core-service
+          predicates:
+            - name: Path
+              args:
+                pattern: /api/v1/book/**
   security:
     oauth2:
       resourceserver:
