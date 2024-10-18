@@ -7,5 +7,6 @@ RUN mvn clean package -DskipTests
 FROM openjdk:17-alpine
 WORKDIR /app
 COPY --from=build /app/target/*.jar application.jar
+ENV SPRING_PROFILES_ACTIVE=docker
 EXPOSE 8081
 ENTRYPOINT ["java", "-jar", "application.jar"]
