@@ -1,0 +1,11 @@
+spring:
+  config:
+    import: 'optional:configserver:'
+  cloud:
+    config:
+      uri: "http://${CONFIG_URI:localhost:8888}"
+  application:
+    name: gateway-service
+
+server:
+  port: 8080
