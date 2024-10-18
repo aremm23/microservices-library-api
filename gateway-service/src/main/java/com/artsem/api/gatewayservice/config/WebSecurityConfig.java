@@ -23,6 +23,9 @@ public class WebSecurityConfig {
                 .pathMatchers("/api/v1/auth/login").permitAll()
                 .pathMatchers("/api/v1/auth/register").permitAll()
                 .pathMatchers("/actuator/health").permitAll()
+                .pathMatchers("/core-service/actuator/health").permitAll()
+                .pathMatchers("/library-service/actuator/health").permitAll()
+                .pathMatchers("/auth-service/actuator/health").permitAll()
                 .anyExchange().authenticated()
         );
         http.oauth2ResourceServer(oAuth2ResourceServerSpec -> oAuth2ResourceServerSpec
