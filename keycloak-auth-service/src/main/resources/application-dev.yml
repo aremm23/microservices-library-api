@@ -1,3 +1,6 @@
+server:
+  port: 8081
+
 spring:
   application:
     name: auth-service
@@ -5,10 +8,8 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:9082/realms/test-realm
+          issuer-uri:  ${OAUTH2_RESOURCESERVER_JWT_ISSUER_URI:http://localhost:9082/realms/test-realm}
           jwk-set-uri: ${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/certs
-server:
-  port: 8081
 
 app:
   keycloak:
@@ -26,8 +27,7 @@ eureka:
     prefer-ip-address: true
   client:
     service-url:
-      defaultZone: http://${EUREKA_URI:eureka-service:8761}/eureka/
-
+      defaultZone: http://${EUREKA_URI:localhost:8761}/eureka/
 
 logging:
   level:
