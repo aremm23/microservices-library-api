@@ -5,77 +5,29 @@ This project is a microservices architecture using Spring Cloud, PostgreSQL, and
 - **Eureka Service** (Service Discovery)
 - **Config Service** (Centralized Configuration)
 - **Gateway Service** (API Gateway)
-- **Authentication Service** (Authentication and Authorization)
+- **Keycloak Authentication Service** (Authentication and Authorization)
 - **Core Service** (Business Logic)
-- **Library Service** (Specific domain logic)
+- **Library Service** (Specific Domain Logic)
 
 ## Prerequisites
 
 - **Docker** installed and running
-- **Java 17** or higher installed
-- **Maven** installed
 
 ## Setup and Start the Services
 
-# Step 1: Start PostgreSQL and RabbitMQ
+### Step 1: Start All Services
 
-The project relies on PostgreSQL and RabbitMQ, which can be easily started using Docker Compose.
+With the updated setup, you can now start all services with a single command. Ensure you are in the project root directory.
 
-Ensure you are in the project root directory.
+Run the following command to start all services:
 
-Run the following command to start PostgreSQL and RabbitMQ containers:
-
-`docker-compose up --build postgres`
-`docker-compose up --build rabbitmq`
-
-This will start the PostgreSQL database on its default port (5432) and RabbitMQ on its default port (5672).
-
-# Step 2: Start the Eureka and Config Services
-
-It is essential to start Eureka (service discovery) and Config (configuration management) services before other
-services.
-1. Start the Eureka Service:
-
-```
-docker-compose up --build eureka
-```
-    
-2. After the Eureka Service is up and running, start the Config Service:
-
-```
-docker-compose up --build config
+```bash
+docker-compose up --build
 ```
 
-# Step 3: Start the Remaining Services
+This command will build and start all containers, including PostgreSQL, RabbitMQ, and your microservices, integrated with Keycloak.
 
-Once Eureka and Config services are running, you can start the remaining services. You can run them in any order, as
-long as Eureka and Config are already up.
-
-1. Gateway Service:
-
-```
-docker-compose up --build gateway
-```
-
-2. Authentication Service:
-
-```
-docker-compose up --build auth
-```
-
-3. Core Service:
-
-```
-docker-compose up --build core
-```
-
-4. Library service
-
-```
-docker-compose up --build library
-```
-
-# Step 4: Verify the Services
+# Step 2: Verify the Services
 
 Eureka Dashboard can be accessed at http://localhost:8761. You should see all the registered services here.
 Gateway Service can be accessed at http://localhost:8080. This acts as the API gateway, routing requests to appropriate
