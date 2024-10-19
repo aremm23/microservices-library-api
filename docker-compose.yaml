@@ -62,12 +62,13 @@ services:
   keycloak:
     image: quay.io/keycloak/keycloak:26.0.1
     restart: always
-    command:
-      - "start-dev"
+    command: start-dev --import-realm --health-enabled=true
     ports:
       - "9082:9082"
+    volumes:
+      - ./keycloak-init:/opt/keycloak/data/import
     environment:
-      KC_HTTP_PORT: 9080
+      KC_HTTP_PORT: 9082
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
       KC_DB: postgres
@@ -77,6 +78,7 @@ services:
       KC_DB_USERNAME: postgres
       KC_DB_PASSWORD: postgres
       KC_HEALTH_ENABLED: "true"
+      KC_FEATURES: token-exchange,admin-fine-grained-authz
     healthcheck:
       test:
         [ "CMD-SHELL", "{ exec 3<>/dev/tcp/localhost/9080 && echo -e \"GET /health/ready HTTP/1.1\nhost: localhost:9080\n\" >&3 && timeout --preserve-status 1 cat <&3 | grep -m 1 -q 'status.*UP'; }" ]
