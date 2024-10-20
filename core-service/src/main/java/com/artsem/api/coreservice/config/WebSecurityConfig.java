@@ -24,6 +24,9 @@ public class WebSecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
                 .authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
+                        .requestMatchers("/core-service-docs/**").permitAll()
+                        .requestMatchers("/swagger-ui/**").permitAll()
+                        .requestMatchers("/v3/api-docs/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/v1/book").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/api/v1/book/*").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/api/v1/book/*").hasRole("ADMIN")
