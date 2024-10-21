@@ -20,6 +20,7 @@ public class WebSecurityConfig {
                 .pathMatchers("/core-service/actuator/health").permitAll()
                 .pathMatchers("/library-service/actuator/health").permitAll()
                 .pathMatchers("/auth-service/actuator/health").permitAll()
+                .pathMatchers("/core-service/service-health/**").permitAll()
                 .anyExchange().authenticated()
         );
         http.oauth2ResourceServer(oAuth2ResourceServerSpec -> oAuth2ResourceServerSpec

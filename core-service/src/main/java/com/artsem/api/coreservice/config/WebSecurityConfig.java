@@ -34,6 +34,7 @@ public class WebSecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/v1/book").hasAnyRole("ADMIN", "USER")
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers("/actuator/health").permitAll()
+                        .requestMatchers("/service-health/**").permitAll()
                         .anyRequest().authenticated())
                 .oauth2ResourceServer(oath2 -> oath2
                         .jwt(jwt -> jwt
