@@ -12,7 +12,7 @@ public class JsonConverter {
 
     private final ObjectMapper objectMapper;
 
-    public String convertBookToJson(BookIdMessage bookId) {
+    public String convertBookToJson(final BookIdMessage bookId) {
         try {
             return objectMapper.writeValueAsString(bookId);
         } catch (JsonProcessingException e) {
