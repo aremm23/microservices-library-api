@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/fallback")
 public class FallbackController {
 
-    @GetMapping("/core-service")
+    @RequestMapping(value = "/core-service",
+            method = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.PATCH, RequestMethod.DELETE})
     public ResponseEntity<String> coreServiceFallback() {
         return new ResponseEntity<>(
                 "Core service down",
@@ -16,7 +17,8 @@ public class FallbackController {
         );
     }
 
-    @GetMapping("/auth-service")
+    @RequestMapping(value = "/auth-service",
+            method = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.PATCH, RequestMethod.DELETE})
     public ResponseEntity<String> authServiceFallback() {
         return new ResponseEntity<>(
                 "Auth service down",
@@ -24,7 +26,8 @@ public class FallbackController {
         );
     }
 
-    @GetMapping("/library-service")
+    @RequestMapping(value = "/library-service",
+            method = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.PATCH, RequestMethod.DELETE})
     public ResponseEntity<String> libraryServiceFallback() {
         return new ResponseEntity<>(
                 "Library service down",
