@@ -1,0 +1,147 @@
+spring:
+  application:
+    name: gateway-service
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+
+      routes:
+        - id: core_route
+          uri: lb://core-service
+          predicates:
+            - name: Path
+              args:
+                pattern: /api/v1/book/**
+        - id: auth_route
+          uri: lb://auth-service
+          predicates:
+            - name: Path
+              args:
+                pattern: /api/v1/auth/**
+        - id: role_route
+          uri: lb://auth-service
+          predicates:
+            - name: Path
+              args:
+                pattern: /api/v1/roles/**
+        - id: groups_route
+          uri: lb://auth-service
+          predicates:
+            - name: Path
+              args:
+                pattern: /api/v1/groups/**
+        - id: users_route
+          uri: lb://auth-service
+          predicates:
+            - name: Path
+              args:
+                pattern: /api/v1/users/**
+        - id:  library_route
+          uri: lb://library-service
+          predicates:
+            - name: Path
+              args:
+                pattern: /api/v1/library/**
+        - id:  library_health_route
+          uri: lb://library-service
+          predicates:
+            - name: Path
+              args:
+                pattern: /library-service/actuator/health
+        - id:  core_health_route
+          uri: lb://core-service
+          predicates:
+            - name: Path
+              args:
+                pattern: /core-service/actuator/health
+        - id:  auth_health_route
+          uri: lb://auth-service
+          predicates:
+            - name: Path
+              args:
+                pattern: /auth-service/actuator/health
+        - id:  core_check_port_route
+          uri: lb://core-service
+          predicates:
+            - name: Path
+              args:
+                pattern: /core-service/service-health/**
+        - id: core_swagger_route
+          uri: lb://core-service
+          predicates:
+            - name: Path
+              args:
+                pattern: /core-service/swagger-ui/**
+        - id: core_api_docs_route
+          uri: lb://core-service
+          predicates:
+            - name: Path
+              args:
+                pattern: /core-service/v3/api-docs/**
+
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${OAUTH2_RESOURCESERVER_JWT_ISSUER_URI:http://localhost:9082/realms/microservices-app-realm}
+          jwk-set-uri: ${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/certs
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
+    config-url: /v3/api-docs/swagger-config
+    urls:
+      - name: Core Service
+        url: /core-service/swagger-ui/index.html
+      - name: Library Service
+        url: /library-service/swagger-ui/index.html
+      - name: Auth Service
+        url: /auth-service/swagger-ui/index.html
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://${EUREKA_URI:localhost:8761}/eureka/
+
+server:
+  port: 8080
+
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        register-health-indicator: true
+        sliding-window-size: 10
+        sliding-window-type: COUNT_BASED
+        failure-rate-threshold: 50
+        wait-duration-in-open-state:
+          seconds: 5
+        permitted-number-of-calls-in-half-open-state: 3
+        automatic-transition-from-open-to-half-open-enabled: true
+  timelimiter:
+    configs:
+      default:
+        timeout-duration:
+          seconds: 3
+
+management:
+  health:
+    circuitbreakers:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: *
+  endpoint:
+    health:
+      show-details: always
+
